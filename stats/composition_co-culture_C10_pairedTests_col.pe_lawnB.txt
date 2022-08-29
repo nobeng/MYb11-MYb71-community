@@ -1,0 +1,22 @@
+[1] "Paired t-test"
+
+	Paired t-test
+
+data:  log10(testData[testData$strain == "MYb11", "cfu_w"]) and log10(testData[testData$strain == "MYb71", "cfu_w"])
+t = 0.82082, df = 4, p-value = 0.4578
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.5011459  0.9218322
+sample estimates:
+mean of the differences 
+              0.2103431 
+
+[1] ""
+[1] "Paired Mann-U-Whitney"
+
+	Wilcoxon signed rank exact test
+
+data:  log10(testData[testData$strain == "MYb11", "cfu_w"]) and log10(testData[testData$strain == "MYb71", "cfu_w"])
+V = 11, p-value = 0.4375
+alternative hypothesis: true location shift is not equal to 0
+

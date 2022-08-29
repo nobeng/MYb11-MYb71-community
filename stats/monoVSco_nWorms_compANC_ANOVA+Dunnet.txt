@@ -1,0 +1,36 @@
+            Df     Sum Sq    Mean Sq    F value     Pr(>F)
+strain       2  716.26188 358.130938 2.90552936 0.09702573
+repO         1   28.04062  28.040619 0.22749456 0.64272285
+strain:repO  2   10.56267   5.281335 0.04284766 0.95821642
+Residuals   11 1355.84255 123.258413         NA         NA
+[1] ""
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: lm(formula = nWorms ~ strain * repO, data = dataset)
+
+Linear Hypotheses:
+                        Estimate Std. Error t value Pr(>|t|)
+MYb11 - co-culture == 0   10.639     14.617   0.728    0.753
+MYb71 - co-culture == 0   -3.496     14.978  -0.233    0.971
+MYb71 - MYb11 == 0       -14.134     14.978  -0.944    0.625
+(Adjusted p values reported -- single-step method)
+
+[1] ""
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Dunnett Contrasts
+
+
+Fit: lm(formula = nWorms ~ strain * repO, data = dataset)
+
+Linear Hypotheses:
+                        Estimate Std. Error t value Pr(>|t|)
+MYb11 - co-culture == 0   10.639     14.617   0.728    0.698
+MYb71 - co-culture == 0   -3.496     14.978  -0.233    0.961
+(Adjusted p values reported -- single-step method)
+

@@ -1,0 +1,36 @@
+            Df    Sum Sq  Mean Sq   F value     Pr(>F)
+treatE       2 1411.8620 705.9310 4.0053332 0.02540156
+repO         1  155.2734 155.2734 0.8809947 0.35317199
+treatE:repO  2   69.6474  34.8237 0.1975838 0.82145229
+Residuals   43 7578.6538 176.2478        NA         NA
+[1] ""
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: lm(formula = nWorms ~ treatE * repO, data = dataset)
+
+Linear Hypotheses:
+                Estimate Std. Error t value Pr(>|t|)
+mono - anc == 0   16.757     10.411   1.609    0.252
+bi - anc == 0      7.731     11.002   0.703    0.763
+bi - mono == 0    -9.026     11.165  -0.808    0.700
+(Adjusted p values reported -- single-step method)
+
+[1] ""
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Dunnett Contrasts
+
+
+Fit: lm(formula = nWorms ~ treatE * repO, data = dataset)
+
+Linear Hypotheses:
+                Estimate Std. Error t value Pr(>|t|)
+mono - anc == 0   16.757     10.411   1.609    0.201
+bi - anc == 0      7.731     11.002   0.703    0.711
+(Adjusted p values reported -- single-step method)
+
