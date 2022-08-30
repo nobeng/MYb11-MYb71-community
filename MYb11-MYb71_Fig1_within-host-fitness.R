@@ -41,7 +41,8 @@ averageReplicates <- function(data){
   return(data) }
 
 # Plotting absolute load
-colsMYb <- c("#FC2F62", "#189E00","grey27")
+#colsMYb <- c("#FC2F62", "#189E00","grey27")
+colsMYb <- c("#B9006A", "#139150", "grey27")
 colsTreat <- c("grey25", rgb(0, 158,115, maxColorValue = 255), rgb(230, 159,0, maxColorValue = 255))
 
 # Proper axis labels
