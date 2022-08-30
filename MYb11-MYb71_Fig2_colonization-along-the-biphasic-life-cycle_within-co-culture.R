@@ -39,7 +39,8 @@ averageReplicates <- function(data){
   return(data) }
 
 # Plotting absolute load
-colsMYb <- c("grey27", "#FC2F62", "#189E00")
+#colsMYb <- c("grey27", "#FC2F62", "#189E00")
+colsMYb <- c("grey27","#B9006A", "#139150")
 colsTreat <- c("grey25", rgb(0, 158,115, maxColorValue = 255), rgb(230, 159,0, maxColorValue = 255))
 
 # Proper axis labels
@@ -367,4 +368,4 @@ ggplot(dataAllAssays, aes(x = strain, y = prop, fill =  strain))+
   my_theme()
 
 # Clean up
-rm(data, a, assayName,i, l, plotLoad, plotReleas)
+rm(a, assayName,i, l, plotLoad, plotReleas)
