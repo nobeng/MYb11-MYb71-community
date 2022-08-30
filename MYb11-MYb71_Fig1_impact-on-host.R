@@ -16,7 +16,8 @@ source("my_theme.R")
 
 # Variables
 colsTreat <- c("black","#8DB500", "#FFB733")
-colsMYb <- c("#FC2F62", "grey27", "#189E00", "blue")
+#colsMYb <- c("#FC2F62", "grey27", "#189E00", "blue")
+colsMYb <- c("#B9006A", "grey27", "#139150")
 assay <- assayName <- "wormSize"
 cycs <- c(4, 10)
 
