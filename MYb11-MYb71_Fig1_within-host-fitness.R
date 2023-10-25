@@ -10,7 +10,7 @@ currentDirectory <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(currentDirectory)
 
 # Specify libraries
-library(plyr); library(ggplot2); library(lawstat); library(lme4); library(emmeans)
+library(plyr); library(ggplot2); library(lawstat); library(lme4); library(emmeans); library(multcomp)
 
 # Source files
 source("my_theme.R")
@@ -106,7 +106,7 @@ for (l in 1:length(lawns)){ # Loop through lawn types
     plotLoad(data, cycs[i], colsMYb, "ancestors", 3, 2.5, lawns[l]) }}
 
 
-#### 2. Check difference between mono and co-culture (Dunnet tests) ####
+#### 2. Check difference between mono and co-culture (Dunnett tests) ####
 # Collect data
 data <- data[data$cycle == 0, ]
 data <- data[!is.na(data$cfu_w),]
@@ -116,6 +116,7 @@ fileName <- paste("stats/", "col.l4_ANCESTORS_ANOVA+Dunnet",".txt", sep="")
 
 # Adjust factor levels of strains to test mono against co-culture abundances
 data$strain <- factor(data$strain, levels = c("co-culture", "MYb11", "MYb71"))
+data$strain <- factor(data$strain, levels = c("MYb11", "MYb71", "co-culture"))
 
 # Run linear regression (LM with ANOVA)
 m <- lm(log10(cfu_w) ~ strain*repO, data=data)
@@ -127,6 +128,10 @@ print(summary(glht(m, mcp(strain="Tukey")))) # Post-hoc output: Tukey
 print("")
 print(summary(glht(m, mcp(strain="Dunnett")))) # Post-doc output: Dunnett
 sink()
+
+
+# Directly compare MYb11 and MYb71
+t.test(log10(data[data$strain == "MYb11", 'cfu_w']), log10(data[data$strain == "MYb71", 'cfu_w']))
 
 # Clean up
 rm(m, data, assayName, colsMYb, colsTreat, currentDirectory, cycs, fileName, i, l, 
