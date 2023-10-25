@@ -97,7 +97,7 @@ data$hours <- rep(1, length(data$tp))
 for(n in 1:length(timepoints)){data[data$tp==timepoints[n], 'hours'] <- hours[n]  }
 
 # Plot data
-ggplot(data, aes(x=hours, y=cfu, fill = as.factor(strain), group = interaction(strain, hours)))+
+ggplot(data[data$hours != "168",], aes(x=hours, y=cfu, fill = as.factor(strain), group = interaction(strain, hours)))+
   stat_summary(fun.y = median, geom = "line", aes(group=strain, col = strain), lty=2, size=1)+
   geom_boxplot(size = 0.3)+
   geom_jitter(position=position_dodge(width=15),aes(group=strain), size=1.3, alpha = 0.5)+
