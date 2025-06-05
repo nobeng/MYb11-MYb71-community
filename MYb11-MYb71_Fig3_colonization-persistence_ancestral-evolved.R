@@ -11,13 +11,13 @@ currentDirectory <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(currentDirectory)
 
 # Specify libraries
-library(plyr); library(ggplot2); library(lawstat); library(lme4); library(emmeans); library(dplyr)
+library(plyr); library(ggplot2); library(lawstat); library(lme4); library(emmeans); library(dplyr); library(multcomp)
 
 # Source files
 source("my_theme.R")
 
 # Specify assay name
-assayNames <- c("col.2h","col.l4", "releas","col.pe") 
+assayNames <- c("col.2h","col.l4", "releas")#,"col.pe") 
 
 # Extract EE cycles and treatments
 cycs <- c(4, 10)
@@ -107,6 +107,23 @@ plotLoad <- function(data, cycle, cols, dimW, dimH, lawns, treatment){
     # Save plot to directory with rel. loads
     ggsave(fileName1, p, height=dimH, width=dimW,dpi=300) }
   
+  
+  ### Check for statistical differences between evolved and ancestral strains/co-culture
+  data$treatE <- as.factor(data$treatE)
+  
+  m <- glm(log10(cfu_w) ~ treatE+strain+repO, data = data, family = "Gamma")
+  
+  summary(glht(m, mcp(treatE="Dunnett")))
+  
+  # Prepare output file name
+  fileName <- paste("stats/", assayName,"_", cycle, "_cfu_w~treatE_GLM_Dunnett.txt", sep="")
+  
+  sink(fileName)
+  print(summary(m)) # ANOVA output
+  print("")
+  print(summary(glht(m, mcp(treatE="Dunnett")))) # Post-doc output: Dunnett
+  sink()
+  
   return("Plots saved to file")}
 
 plotReleas <- function(data, cycle, cols, dimW, dimH, lawns, treatment){
@@ -180,6 +197,21 @@ plotReleas <- function(data, cycle, cols, dimW, dimH, lawns, treatment){
     # Save plot to directory with rel. loads
     ggsave(fileName1, p1, height=dimH, width=dimW,dpi=300)
     ggsave(fileName2, p2, height=dimH, width=dimW,dpi=300)}
+  
+  ### Check for statistical differences between evolved and ancestral strains/co-culture
+  data$treatE <- as.factor(data$treatE)
+  m <- glm(log10(cfu_w) ~ treatE+strain+repO, data = data, family = "Gamma")
+  
+  summary(glht(m, mcp(treatE="Dunnett")))
+  
+  # Prepare output file name
+  fileName <- paste("stats/", assayName,"_", cycle, "_cfu_w~treatE_GLM_Dunnett.txt", sep="")
+  
+  sink(fileName)
+  print(summary(m)) # ANOVA output
+  print("")
+  print(summary(glht(m, mcp(treatE="Dunnett")))) # Post-doc output: Dunnett
+  sink()
   
   return("Plots saved to file")}
 

@@ -84,16 +84,6 @@ dataMYb71$strain <- rep("MYb71", length(dataMYb71$assay))
 
 dataWithStrain <- rbind(data, dataMYb71)
 
-# Attach place holders to standardize balloon size in plot
-data$propFull <- rep(1, length(data$assay))
-data <- rbind(data, 
-              data.frame(assay = rep("PH", 4), 
-                         treatE = rep ("ANC", 4), 
-                         cycle = rep(0, 4), 
-                         prop = rep(c(0,1), 2), 
-                         strain = rep(c("MYb11", "MYb71"), 2),
-                         propFull = rep(c(1,0),2)
-                         ))
 
 #### = Plotting = ####
 
@@ -103,44 +93,31 @@ cycs <- c(4, 10)
 # Plotting color scheme
 colsMYb <- c("#B9006A", "#139150", "grey27")
 
-# Function to plot heat map
-plotCircles <- function(data, cycle){
+# Function to stacked bar graphs
+plotStackedBarGraphs <- function(data, cycle){
   # Set cycle to exclude
   ifelse(cycle == 4, cyc <- 10, cyc <- 4)
-
-  data <- data[data$cycle!= cyc, ]  
-
-  ggballoonplot(data, x = "assay", y = "treatE", size = "propFull",
-                ggtheme = theme_bw(), 
-                fill = colsMYb[2],
-                color = colsMYb[2],
-                size.range = c(1, 10),
-                xlab ="Life stage", 
-                ylab = "Evol. treatment")+
-    my_theme(d)+
-    theme(axis.text.x = element_text(angle = 45, hjust=1))
   
-  ggsave(paste("./plots/evoProportions_background_",cycle,".svg", sep=""), height=3.5, width=5,dpi=300)
+  data <- data[data$cycle!= cyc, ]
+  data$treatE <- factor(data$treatE, levels = rev(c("ANC", "BI", "MONO")))
   
-  ggballoonplot(data, x = "assay", y = "treatE", size = "prop",
-                ggtheme = theme_bw(), 
-                fill = colsMYb[1],
-                color = colsMYb[1],
-                size.range = c(1, 10),
-                xlab ="Life stage", 
-                ylab = "Evol. treatment")+
-    my_theme(d)+
-    theme(axis.text.x = element_text(angle = 45, hjust=1))
-  ggsave(paste("./plots/evoProportions_MYb11-centre_",cycle,".svg", sep=""), height=3.5, width=5,dpi=300)
-
-  # Overlay is manually performed in Inkscape.
+  ggplot(data, aes(fill=strain, y=treatE, x=prop)) + 
+    geom_bar(position="stack", stat="identity")+
+    facet_grid(~assay)+
+    scale_fill_manual(values=colsMYb)+
+    theme_bw()+
+    theme(
+      axis.text.x=element_text(hjust=1, angle=45)
+    )
+  
+  ggsave(paste("./plots/evoProportions_stacked-bar_",cycle,".svg", sep=""), height=2, width=14,dpi=300)
   
   return()
 }
 
 # Loop through cycles assayed
-for (i in 1:length(cycs)){ plotCircles(data, cycs[i]) } 
+for (i in 1:length(cycs)){ plotStackedBarGraphs(dataWithStrain, cycs[i]) } 
 
 # Clean up
 rm(data, dataCol, dataGrowth, dataMYb71, dataWithStrain, colsMYb, currentDirectory, cycs, fileNameCol, 
-   fileNameGrowth, i, my_theme, plotCircles)
+   fileNameGrowth, i, my_theme, plotCircles, plotStackedBarGraphs)
