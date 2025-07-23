@@ -1,4 +1,4 @@
-This repository contains the code and data for the project and publication "Role of microbial life history strategy in shaping the characteristics and evolution of host-microbiota interactions" (Obeng et al. 2025). A corresponding release has been published at Zenodo. All analyses performed in R and their corresponding data are archived in this repository.
+This repository contains the code and data for the project and publication "Role of microbial life history strategy in shaping the characteristics and evolution of host-microbiota interactions" (Obeng et al. 2025). A corresponding release has been published at Zenodo. All analyses performed in R, their corresponding data and output from statistical analyses are archived in this repository.
 
 ## Table of Contents
 •	Abstract
@@ -19,7 +19,7 @@ Acknowledgements: We thank Florence Bansept, Brendan Bohannan, Peter Deines, and
 The repository includes scripts and data necessary to reproduce the analyses and figures presented in the associated publication.
 
 ## Repository Structure
-All files are saved under the main branch. Data files and corresponding R scripts for analysis are labeled by figure number within the manuscript.
+R scripts are saved under the main branch. Most input data is saved under the main branch, alternatively in "data". Output from statistical analyses can be found under "stats", output for life history predictions under "plots".
 
 ## Getting Started
 1.	Clone the repository:
